@@ -19,6 +19,7 @@ export function Header({ onChange }) {
 
   function handleSignOut() {
     signOut();
+    navigate("/");
   }
 
   function handleNavigate() {

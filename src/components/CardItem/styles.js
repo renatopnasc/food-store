@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: ${({ theme }) => theme.COLORS.DARK_200};
-  padding: 2.4rem;
+  padding: 5.5rem 2.4rem;
   border-radius: 0.8rem;
   max-width: 30.4rem;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
 
   position: relative;
 

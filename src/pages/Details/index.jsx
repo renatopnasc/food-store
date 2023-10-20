@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/roles";
 
 export function Details() {
   const [amount, setAmout] = useState(0);
@@ -16,6 +18,8 @@ export function Details() {
 
   const navigate = useNavigate();
   const params = useParams();
+
+  const { user } = useAuth();
 
   function handleDecrement(event) {
     if (amount <= 0) return;
@@ -54,25 +58,27 @@ export function Details() {
                 <p>{data.description}</p>
 
                 <div className="tags-container">
-                  {/* <Tag title="alface" />
-                  <Tag title="cebola" />
-                  <Tag title="pão naan" />
-                  <Tag title="pepino" />
-                  <Tag title="rabanete" />
-                  <Tag title="tomate" /> */}
                   {data.ingredients.map((ingredient) => (
                     <Tag key={ingredient.id} title={ingredient.name} />
                   ))}
                 </div>
 
                 <div className="add-item-container">
-                  <Counter
-                    amount={amount}
-                    decremet={handleDecrement}
-                    increment={handleIncrement}
-                  />
+                  {user.role !== USER_ROLE.ADMIN && (
+                    <Counter
+                      amount={amount}
+                      decremet={handleDecrement}
+                      increment={handleIncrement}
+                    />
+                  )}
 
-                  <Button title={`incluir ∙ ${data.price}`} />
+                  <Button
+                    title={
+                      user.role === USER_ROLE.ADMIN
+                        ? "Editar prato"
+                        : `incluir ∙ ${data.price}`
+                    }
+                  />
                 </div>
               </div>
             </section>

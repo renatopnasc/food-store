@@ -1,22 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-
-  > p {
-    color: ${({ theme }) => theme.COLORS.LIGHT_400};
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-size: 1.6rem;
-  }
-
-  > label {
+  > #file-label {
     padding: 1.2rem 3.2rem;
-    max-width: 22.9rem;
+    width: 23rem;
     border-radius: 0.8rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    font-size: 1.4rem;
 
     display: flex;
     align-items: center;

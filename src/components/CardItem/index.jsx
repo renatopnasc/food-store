@@ -4,9 +4,13 @@ import { useState } from "react";
 import { Counter } from "../Counter";
 
 import { AiOutlineHeart } from "react-icons/ai";
+import { BsPencil } from "react-icons/bs";
+import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/roles";
 
 export function CardItem({ data, onClick }) {
   const [amount, setAmount] = useState(0);
+  const { user } = useAuth();
 
   function handleIncrement() {
     setAmount((state) => state + 1);
@@ -23,7 +27,11 @@ export function CardItem({ data, onClick }) {
   return (
     <Container>
       <button>
-        <AiOutlineHeart size={24} />
+        {user.role === USER_ROLE.ADMIN ? (
+          <BsPencil size={24} />
+        ) : (
+          <AiOutlineHeart size={24} />
+        )}
       </button>
 
       <img
@@ -38,14 +46,16 @@ export function CardItem({ data, onClick }) {
 
       <p className="food-price">R$ {data.price}</p>
 
-      <div>
-        <Counter
-          amount={amount}
-          decremet={handleDecrement}
-          increment={handleIncrement}
-        />
-        <Button title="incluir" />
-      </div>
+      {user.role !== USER_ROLE.ADMIN && (
+        <div>
+          <Counter
+            amount={amount}
+            decremet={handleDecrement}
+            increment={handleIncrement}
+          />
+          <Button title="incluir" />
+        </div>
+      )}
     </Container>
   );
 }
